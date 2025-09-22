@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Tactile Deafblind Communication",
+  "version": "1.0",
+  "description": "Browser extension prototype for tactile communication using a robotic arm.",
+  "action":{
+    "default_popup": "web_popup.html",
+    "default_icon": "LauraIMG.png"
+  },
+  "permissions": [
+    "nativeMessaging",
+    "activeTab",
+    "scripting",
+    "serial"
+  ],
+  "host_permissions":[
+    "#://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
