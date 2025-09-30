@@ -1,5 +1,16 @@
+// CODELAB: Add feature detection here.
+const notSupported = document.getElementById('notSupported');
+notSupported.classList.toggle('hidden', 'serial' in navigator);
+
+/*
+port = await navigator.serial.requestPort(); //request port for serial connection
+
+await port.open({ baudrate: 9600 }); //wait for port to open
+*/
+
+
 document.addEventListener("keydown", (e) => {
-    if (e.key === "1") {
+    if (e.key === "2") {
         e.preventDefault(); // Prevent default browser behavior
 
         // Get the currently focused element
