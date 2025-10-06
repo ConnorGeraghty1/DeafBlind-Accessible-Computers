@@ -1,5 +1,14 @@
+//Check that WebSerial is compatible
+if ("serial" in navigator) {
+    console.log("Content: WebSerial Supported");
+}
+else {
+    console.log("Content: WebSerial NOT Supported");
+}
+
+
 document.addEventListener("keydown", (e) => {
-    if (e.key === "2") {
+    if (e.key === "`") {
         e.preventDefault(); // Prevent default browser behavior
 
         // Get the currently focused element

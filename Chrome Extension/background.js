@@ -1,10 +1,6 @@
-if ("serial" in navigator) {
-    // The Web Serial API is supported.
-    console.log("I think that worked?");
-}
-else {
-    console.log("I don't think that worked.");
-}
+
+
+
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => { //listens for incoming messages
     if (message.type === "sendToHost") {
