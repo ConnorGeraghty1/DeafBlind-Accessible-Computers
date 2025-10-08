@@ -1,3 +1,5 @@
+console.log("content loaded, API access: " + ("serial" in navigator));
+
 //Check that WebSerial is compatible
 if ("serial" in navigator) {
     console.log("Content: WebSerial Supported");
@@ -5,6 +7,7 @@ if ("serial" in navigator) {
 else {
     console.log("Content: WebSerial NOT Supported");
 }
+
 
 
 document.addEventListener("keydown", (e) => {
@@ -29,3 +32,4 @@ document.addEventListener("keydown", (e) => {
         }
     }
 });
+

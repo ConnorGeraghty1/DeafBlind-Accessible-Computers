@@ -3,16 +3,17 @@
   "name": "Tactile Deafblind Communication",
   "version": "1.0",
   "description": "Browser extension prototype for tactile communication using a robotic arm.",
+  "options_page": "options.html",
+  "icons": {
+   "16": "LauraIMG.png",
+   "32": "LauraIMG.png",
+   "48": "LauraIMG.png",
+   "128": "LauraIMG.png"},
   "action":{
     "default_popup": "web_popup.html",
     "default_icon": "LauraIMG.png"
   },
-  "permissions": [
-    "nativeMessaging",
-    "activeTab",
-    "scripting",
-    "serial"
-  ],
+  "permissions": [],
   "host_permissions":[
     "#://*/*"
   ],
@@ -26,4 +27,5 @@
       "run_at": "document_end"
     }
   ]
+  
 }
