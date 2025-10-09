@@ -7,4 +7,3 @@ document.getElementById('Open Connection Page').addEventListener('click', async 
 });
 
 
-

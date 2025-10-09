@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Tactile Deafblind Communication",
+  "name": "Laura - DeafBlind Accessibility",
   "version": "1.0",
   "description": "Browser extension prototype for tactile communication using a robotic arm.",
   "options_page": "options.html",
