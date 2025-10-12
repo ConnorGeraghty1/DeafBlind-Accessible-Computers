@@ -13,7 +13,7 @@
     "default_popup": "web_popup.html",
     "default_icon": "LauraIMG.png"
   },
-  "permissions": [],
+  "permissions": ["activeTab", "scripting", "nativeMessaging"],
   "host_permissions":[
     "#://*/*"
   ],
