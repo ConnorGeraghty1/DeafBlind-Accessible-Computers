@@ -10,28 +10,32 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === "elementText") {
         console.log("Outputter received: ", message.data);
         receivedText = message.data;
-
     }
-    chars = receivedText.split("");
-    while (chars.length > 0) {
-        
-        //split up the string by characters
-        console.log("Current List: " + chars.join(''));
-
-        //provide 2 seconds to log and write the first character
-            
-        console.log("Writing First Char: " + chars[0].toLowerCase());
-        writer.write(chars[0].toLowerCase());
-
-        //remove first character
-
-        chars.shift();
-        console.log("New List: " + chars.join(''));
-
-        sleep(2000);
-    }
+    writeCharsSlowly(receivedText);
     
 });
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function writeCharsSlowly(receivedText) {
+  chars = receivedText.split("");
+
+  while (chars.length > 0) {
+    console.log("Current List: " + chars.join(''));
+
+    const char = chars[0].toLowerCase();
+    console.log("Writing First Char: " + char);
+
+    await writer.write(char);
+    chars.shift();
+
+    console.log("New List: " + chars.join(''));
+    await sleep(2000); // wait 2 seconds before next character
+  }
+}
+
 
 
 document.getElementById('portRequest').addEventListener('click', async () => {
@@ -50,14 +54,11 @@ document.getElementById('portRequest').addEventListener('click', async () => {
 
         writer = textEncoder.writable.getWriter();
         
-        //!!! MOVE THIS OUT THE LOOP PRO FLAOVR
-        
 
         setTimeout(async function(){
             console.log("writing maximum");
             await writer.write("allmax");
         }, 2000);
-
         
 
     }     
