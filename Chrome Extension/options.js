@@ -32,7 +32,7 @@ async function writeCharsSlowly(receivedText) {
     chars.shift();
 
     console.log("New List: " + chars.join(''));
-    await sleep(2000); // wait 2 seconds before next character
+    await sleep(1000); // wait 2 seconds before next character
   }
 }
 

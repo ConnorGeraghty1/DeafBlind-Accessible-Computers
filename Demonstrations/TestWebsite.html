@@ -1,8 +1,40 @@
 <html>
   <body>
     <title>DeafBlind Accessible Computers</title>
+
+    <style>
+        .yellow-button {
+          background-color: yellow;
+          color: black;
+          border: 2px solid #ccc;
+          padding: 10px 20px;
+          font-size: 16px;
+          cursor: pointer;
+          border-radius: 5px;
+          transition: background-color 0.3s ease;
+        }
+
+        .yellow-button:hover {
+          background-color: gold;
+        }
+
+        .pink-button {
+          background-color: rgb(208, 147, 194);
+          color: black;
+          border: 2px solid #ccc;
+          padding: 10px 20px;
+          font-size: 16px;
+          cursor: pointer;
+          border-radius: 5px;
+          transition: background-color 0.3s ease;
+        }
+
+        .pink-button:hover {
+          background-color: rgb(180, 89, 179);
+        }
+    </style>
     
-    <meta name="color-scheme" content="light dark">
+   
 
     <h1>
         <button style="font-size: 40">
@@ -27,11 +59,11 @@
     </button>
     <br><br>
 
-    <button style="font-size: 25px;">
-        <em>
-        I need to record a video of me talking for the camera. I might just walk outside to record this.
-        </em>
-    </button>
+    <video width="400" controls>
+      <source src="VideoForTestWebsite.mp4" type="video/mp4">
+      Your browser does not support HTML video.
+    </video>
+
     <br><br>
 
     <button style="font-size: 40">
@@ -39,13 +71,17 @@
     </button>
     <br><br>
 
-    <button style="font-size: 30px;" popovertarget="my-popover">
-        How can I click a button I can't see?
+    <p>Click this ↓</p>
+
+    <button style="font-size: 30px;" popovertarget="my-popover" class="yellow-button">
+      How can I click a button I can't see?
     </button>
+    </div>
+    
     <br><br>
     
     <div 
-        popover id="my-popover"> <button> With the 'enter' key! </button>
+        popover id="my-popover"> <button class="pink-button"> With the 'enter' key! </button>
     </div>
     <br><br>
 
@@ -58,11 +94,6 @@
     <label for="text-input">Input: </label>
     <input type="text" id="text-input" name="text-input" placeholder="Alright, test away." required>
     <br>
-    
-    <button style="font-size: 20px;">
-      Log Ports
-    </button>
-    <script> src="background.js"</script>
 
   </body>
 </html>
