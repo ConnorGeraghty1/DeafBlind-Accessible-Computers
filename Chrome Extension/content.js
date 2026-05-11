@@ -3,12 +3,14 @@ console.log("content loaded, API access: " + ("serial" in navigator));
 /**
  * All text and element labels on the page
  */
-fullText = document.body.fullText;
+fullText = document.body.innerText;
 
 /**
  * An array of each text segment and element label on the page
  */
-fullParsed = fullText.split("\n");
+preFiltered = fullText.split("\n");
+fullParsed = preFiltered.filter(item => item !== ""); 
+console.log("Parsed: " + fullParsed);
 
 /**
  * Provided page has elements set an active element to be
@@ -32,7 +34,7 @@ else {
 
 function moveActiveAnything(direction){
 
-    const activeCurrentIndex = fullParsed.indexOf(activeAnything);
+    activeCurrentIndex = fullParsed.indexOf(activeAnything);
 
     if(activeCurrentIndex == fullParsed.length-1 && direction == 1){
         activeAnything = fullParsed[0];
@@ -54,7 +56,7 @@ function moveActiveAnything(direction){
  */
 function getElementByString(targetText) {
 
-    const xpath = `//${"*"}[text()="${targetText}"]`;
+    xpath = `//*[text()[contains(normalize-space(), "${targetText}")]]`;
 
     return document.evaluate(
         xpath,
@@ -81,14 +83,14 @@ document.addEventListener("keydown", (e) => {
     if (e.key === "3") {
         e.preventDefault();
         moveActiveAnything(1);
-        console.log("back");
+        console.log("forward");
 
     }
     //previous element
     if (e.key === "1") {
         e.preventDefault();
         moveActiveAnything(-1);
-        console.log("forward");
+        console.log("back");
 
     }
     //click element element
@@ -96,8 +98,10 @@ document.addEventListener("keydown", (e) => {
         element = getElementByString(activeAnything);
         if(!element){
             throw new Error("This text does not have a corresponding element.");
+        } else { 
+            element.click();
+            console.log("Clicking " + element.innerText);
         }
-        document.activeElement.click();
 
     }
 });
