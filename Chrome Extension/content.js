@@ -43,6 +43,7 @@ function moveActiveAnything(direction){
         activeAnything = fullParsed[activeCurrentIndex += direction];
     
     }
+    console.log("Active: " + activeAnything);
 }
 
 
