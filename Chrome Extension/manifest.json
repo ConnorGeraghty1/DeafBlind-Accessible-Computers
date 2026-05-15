@@ -14,9 +14,7 @@
     "default_icon": "LauraIMG.png"
   },
   "permissions": ["nativeMessaging"],
-  "host_permissions":[
-    "#://*/*"
-  ],
+  "host_permissions":[  ],
   "background": {
     "service_worker": "background.js"
   },
