@@ -1,7 +1,28 @@
 console.log("content loaded, API access: " + ("serial" in navigator));
 
+/**
+ * All text and element labels on the page
+ */
+fullText = document.body.innerText;
 
+/**
+ * An array of each text segment and element label on the page
+ */
+preFiltered = fullText.split("\n");
+fullParsed = preFiltered.filter(item => item !== ""); 
+console.log("Parsed: " + fullParsed);
 
+/**
+ * Provided page has elements set an active element to be
+ */
+if(fullParsed.length > 0){
+    
+    activeAnything = fullParsed[0];
+
+}
+else{
+    throw new Error("Page is empty.");
+}
 
 //Check that WebSerial is compatible
 if ("serial" in navigator) {
@@ -11,60 +32,76 @@ else {
     console.log("Content: WebSerial NOT Supported");
 }
 
+function moveActiveAnything(direction){
 
-function moveFocus(direction = 1, container = document.body) {
-  const focusableSelectors = [
-    'a[href]',
-    'button:not([disabled])',
-    'input:not([disabled]):not([type="hidden"])',
-    'select:not([disabled])',
-    'textarea:not([disabled])',
-    '[tabindex]:not([tabindex="-1"])'
-  ];
+    activeCurrentIndex = fullParsed.indexOf(activeAnything);
 
-  const focusable = Array.from(container.querySelectorAll(focusableSelectors.join(',')))
-    .filter(el => el.offsetParent !== null); // skip hidden elements
+    if(activeCurrentIndex == fullParsed.length-1 && direction == 1){
+        activeAnything = fullParsed[0];
+    } else if (activeCurrentIndex == 0 && direction == -1){
+        activeAnything = fullParsed[fullParsed.length-1];
+    } else{
 
-  const currentIndex = focusable.indexOf(document.activeElement);
-  let nextIndex = currentIndex + direction;
+        activeAnything = fullParsed[activeCurrentIndex += direction];
+    
+    }
+    console.log("Active: " + activeAnything);
+}
 
-  // Wrap around if needed
-  if (nextIndex >= focusable.length) nextIndex = 0;
-  if (nextIndex < 0) nextIndex = focusable.length - 1;
 
-  focusable[nextIndex]?.focus();
+/**
+ * Helper method to get element if it's clickable
+ * @param {string} targetText the inner text of the element to retrieve 
+ * @returns The element containing the provided string
+ */
+function getElementByString(targetText) {
+
+    xpath = `//*[text()[contains(normalize-space(), "${targetText}")]]`;
+
+    return document.evaluate(
+        xpath,
+        document,
+        null,
+        XPathResult.FIRST_ORDERED_NODE_TYPE,
+        null
+    ).singleNodeValue;
 }
 
 document.addEventListener("keydown", (e) => {
-    if (e.key === "4") {
-        e.preventDefault(); // Prevent default browser behavior
-        // Get the currently focused element
 
-        let elementText = document.activeElement.innerText;
+    //These keybinds can be set to anything, I just use a one-handed keyboard that happens to have these. -CSG
+
+    if (e.key === "4") {
+        e.preventDefault();
         console.log("'read' key pressed pressed");
-        console.log("From Content: " + elementText);
+        console.log("From Content: " + activeAnything);
         
-        chrome.runtime.sendMessage({ type: "elementText", data: elementText });
+        chrome.runtime.sendMessage({ type: "elementText", data: activeAnything });
 
     }
     //next element
     if (e.key === "3") {
         e.preventDefault();
-        moveFocus(1);
-        console.log("back");
+        moveActiveAnything(1);
+        console.log("forward");
 
     }
     //previous element
     if (e.key === "1") {
         e.preventDefault();
-        moveFocus(-1);
-        console.log("forward");
+        moveActiveAnything(-1);
+        console.log("back");
 
     }
     //click element element
     if (e.key === "2") {
-        e.preventDefault();
-        document.activeElement.click();
+        element = getElementByString(activeAnything);
+        if(!element){
+            throw new Error("This text does not have a corresponding element.");
+        } else { 
+            element.click();
+            console.log("Clicking " + element.innerText);
+        }
 
     }
 });
