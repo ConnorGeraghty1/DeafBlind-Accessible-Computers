@@ -1,3 +1,5 @@
+#Used for serial testing (without serial monitor)
+
 import serial
 import time
 

@@ -13,10 +13,11 @@ fullParsed = preFiltered.filter(item => item !== "");
 console.log("Parsed: " + fullParsed);
 
 /**
- * Provided page has elements set an active element to be
+ * Provided page has elements, set an active element to be
  */
 if(fullParsed.length > 0){
     
+    //activeAnything is the selected html which may or may not be a clickable element
     activeAnything = fullParsed[0];
 
 }
@@ -32,6 +33,10 @@ else {
     console.log("Content: WebSerial NOT Supported");
 }
 
+/**
+ * Sets the current html being read to be the next readable html
+ * @param {int} direction the amount of html to jump (1 is next, -1 is previous, 2 is the next's next) 
+ */
 function moveActiveAnything(direction){
 
     activeCurrentIndex = fullParsed.indexOf(activeAnything);
@@ -71,6 +76,7 @@ document.addEventListener("keydown", (e) => {
 
     //These keybinds can be set to anything, I just use a one-handed keyboard that happens to have these. -CSG
 
+    //sign text from element
     if (e.key === "4") {
         e.preventDefault();
         console.log("'read' key pressed pressed");
